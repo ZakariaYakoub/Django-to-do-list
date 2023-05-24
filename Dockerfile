@@ -8,8 +8,6 @@ ENV PYTHONUNBUFFERED 1
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the virtual environment
-COPY web/ /app/web/
 
 # Install dependencies
 COPY requirements.txt /app/
