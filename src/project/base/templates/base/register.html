@@ -1,0 +1,26 @@
+<head>
+    <title>Signup</title>
+</head>
+{% extends 'base/my_style.html'%}
+{% block content %}
+<div class="top-bar">
+    <h1>Sign up</h1>
+</div>
+<div class="card-body">
+    <form method = 'POST'>
+    {% csrf_token %}
+    <label>{{form.username.label}}</label>
+    {{form.username}}<br>
+    <label>{{form.password1.label}}</label>
+    {{form.password1}}
+    <label>{{form.password2.label}}</label>
+    {{form.password2}}<br><br>
+    <input class="button" type="submit" value = 'Sign up'>
+    </form>
+    <p>
+        You already have an account?
+        <a href="{%url 'login'%}" style="text-decoration:none;">Login</a>
+    </p>
+</div>
+
+{% endblock content %}

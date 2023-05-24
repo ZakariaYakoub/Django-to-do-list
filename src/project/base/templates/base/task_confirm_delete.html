@@ -1,0 +1,19 @@
+<head>
+    <title>Delete task</title>
+</head>
+{% extends 'base/my_style.html'%}
+{% block content %}
+
+<div class="top-bar">
+    <a href="{%url 'pendings'%}">&#x1F860; Back</a>
+</div>
+
+<div class="card-body">
+    <form method="POST">
+    {% csrf_token %}
+    <p>You are going to delete task: {{task.title}}</p>
+    <input class = 'button' type="submit" value ='Delete'>
+    </form>
+</div>
+
+{% endblock content %}
