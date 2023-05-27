@@ -1,0 +1,87 @@
+---
+- name: wait ssh connection
+  hosts: aws_ec2
+  gather_facts: False
+  tasks:
+    - name: ensure ssh port open
+      port: 22
+      wait_for:
+        delay: 10
+        timeout: 60
+        search_regex: OpenSSH
+        host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+      vars:
+        ansible_connection: local
+
+- name: Install Docker on Debian
+  hosts: aws_ec2
+  become: true
+  
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+    - name: install pip
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+
+    - name: Add Docker repository
+      become: true
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/debian buster stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: true
+      
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+
+    - name: Add admin user to docker group
+      ansible.builtin.user:
+        name: admin
+        groups: docker
+        append: yes
+    
+    - name: Reconnect to server session
+      ansible.builtin.meta: reset_connection
+
+- name: install docker-compose
+  hosts: aws_ec2
+  become: true
+  vars_files:
+    - credentials.yml
+  tasks:
+    - name: Download Docker Compose binary
+      get_url:
+        url: https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-{{lookup('pipe', 'uname -m')}}
+        dest: /usr/local/bin/docker-compose
+        mode: +x
+    
+    - name: Install Docker SDK for Python
+      pip:
+        name: 
+          - "docker<5"
+          - docker-compose 
+
+    - name: Setup more docker dependencies
+      pip:
+        name: "websocket-client<1"
+    - name: Docker login
+      community.docker.docker_login: 
+        registry_url: 474871713933.dkr.ecr.eu-central-1.amazonaws.com/django-app
+        username: AWS
+        password: "{{docker_password}}"
+
