@@ -13,7 +13,7 @@ pipeline {
                     dir('terraform') {
                         sh "terraform init"
                         sh "terraform apply --auto-approve"
-                        MY_IP = sh(script: "terraform output nginx_public_ip",returnStdout: true).trim()
+                        MY_IP = sh(script: "terraform output instance_ip",returnStdout: true).trim()
                     }
                 }
             }
