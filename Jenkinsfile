@@ -58,7 +58,7 @@ pipeline {
                     withCredentials([sshUserPrivateKey(credentialsId:'ansible-server-key',keyFileVariable: 'keyfile',usernameVariable:'user')]){
                         remote.user = user
                         remote.identityFile = keyfile
-                        sshCommand remote: remote, command: 'cd ansible-django && sudo ansible-playbook deploy-app.yaml --vault-password-file=vault-password'
+                        sshCommand remote: remote, command: "cd ansible-django && sudo ansible-playbook deploy-app.yaml --extra-vars 'build_number=${BUILD_NUMBER}'--vault-password-file=vault-password"
                     }
                 }
             }
