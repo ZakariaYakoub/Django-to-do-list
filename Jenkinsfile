@@ -50,7 +50,7 @@ pipeline {
         stage("Deploy app to provisionned server"){
             steps {
                 script {
-                    echo "calling ansible playbook to configure nginx server"
+                    echo "calling ansible playbook to configure ec2 instance server"
                     def remote= [:]
                     remote.name = "ansible-server"
                     remote.host = "20.111.8.195"
