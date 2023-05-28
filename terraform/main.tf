@@ -6,7 +6,7 @@ variable "ansible-ip" {
     default = "20.111.8.195/32"
 }
 variable "jenkins-ip" {
-    default = "139.162.172.87/32"
+    default = "139.162.156.240/32"
 }
 variable "vpc-cidr-block" {
     default = "10.0.0.0/16"
@@ -21,7 +21,7 @@ variable "env_prefix" {
     default = "dev"
 }
 variable "myip" {
-    default = "105.158.221.105/32"
+    default = "41.140.197.249/32"
 }
 variable "pub_key_location" {
     default = "/var/jenkins_home/.ssh/id_rsa.pub"
