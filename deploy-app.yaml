@@ -79,9 +79,15 @@
     - name: Setup more docker dependencies
       pip:
         name: "websocket-client<1"
+
     - name: Docker login
       community.docker.docker_login: 
         registry_url: 474871713933.dkr.ecr.eu-central-1.amazonaws.com/django-app
         username: AWS
         password: "{{docker_password}}"
+    
+    - name: Pull Docker Image
+      community.docker.docker_image:
+      name: "474871713933.dkr.ecr.eu-central-1.amazonaws.com/django-app:{{ build_number }}"
+      source: pull
 
