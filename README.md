@@ -16,3 +16,11 @@ The pipeline consists of the following stages:
 4. Deploy app to provisioned server:
 
     The final stage deploys the Django application to the provisioned EC2 instance using Ansible. It waits for the SSH connection to be available and then installs Docker, Docker Compose, and other necessary dependencies on the server. It logs in to the Docker registry, pulls the Docker image with the specified build number, and prepares the application for deployment.
+
+
+The image above reflects the successful deployment of the Django application, showcasing the seamless execution of the pipeline from provisioning the infrastructure to the smooth functioning of the deployed application.
+\
+\
+\
+![Image Alt Text](image_2023-05-29_131452832.png)
+
