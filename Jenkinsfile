@@ -38,7 +38,7 @@ pipeline {
                 }
             steps {
                 script {
-                    sh "aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 474871713933.dkr.ecr.eu-west-3.amazonaws.com"
+                    sh "aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 474871713933.dkr.ecr.eu-central-1.amazonaws.com"
                     sh "docker tag django-app:${BUILD_NUMBER} 474871713933.dkr.ecr.eu-central-1.amazonaws.com/django-app:${BUILD_NUMBER}"
                     sh "docker push 474871713933.dkr.ecr.eu-central-1.amazonaws.com/django-app:${BUILD_NUMBER}"
                 }
